@@ -1,0 +1,36 @@
+#tiitel {
+    -fx-font-family: Karla;
+    -fx-font-size: 38;
+    -fx-font-weight: 700;
+}
+
+#vastus {
+    -fx-font-family: Karla;
+    -fx-font-size: 26;
+    -fx-font-weight: 400;
+}
+
+#valik {
+    -fx-font-family: Overpass;
+    -fx-font-size: 20;
+    -fx-font-weight: 400;
+}
+
+Button {
+    -fx-background-color: #ccd1e2;
+    -fx-font-family: Overpass;
+    -fx-font-size: 15;
+    -fx-font-weight: 700;
+}
+
+#edasi,
+#arvuta {
+    -fx-background-color: #0C2231;
+    -fx-text-base-color: white;
+}
+
+TextField {
+    -fx-font-family: Overpass;
+    -fx-font-size: 15;
+    -fx-font-weight: 700;
+}
