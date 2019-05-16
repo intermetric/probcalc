@@ -1,4 +1,4 @@
-public class Poisson {
+public class PoissoniJaotus {
 
     //Küsime kasutajalt vajalikud andmed ja väljastame soovitud tulemuse:
     public static String arvuta(double lambda) {
@@ -9,7 +9,7 @@ public class Poisson {
         double standardhälve = Math.sqrt(dispersioon);
 
         return "Poissoni jaotuse kohaselt on keskväärtus " + keskväärtus
-                + ", dispersioon " + dispersioon + " ja standardhälve "
+                + ",\ndispersioon " + dispersioon + " ja standardhälve "
                 + Math.round(standardhälve * 100.0) / 100.0 + ". \n";
     }
 }

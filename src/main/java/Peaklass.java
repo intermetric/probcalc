@@ -277,10 +277,23 @@ public class Peaklass extends Application {
 
         //////////////////////////////////////////////////////////////////////////////////////
 
+        //Nupp väljastatud vastuse ja väljade tühjendamiseks
         Button tühjenda = new Button("Tühjenda");
         StackPane.setAlignment(tühjenda, Pos.BOTTOM_CENTER);
         StackPane.setMargin(tühjenda, new Insets(0, 0, 40, 0));
         tühjenda.setId("tühjenda");
+
+        //Nupp programmist väljumiseks
+        Button välju = new Button("Välju");
+        StackPane.setAlignment(välju, Pos.BOTTOM_RIGHT);
+        StackPane.setMargin(välju, new Insets(0, 62, 40, 0));
+        tühjenda.setId("välju");
+
+        välju.setOnAction(event -> {
+            pealava.close();
+        });
+
+        juur.getChildren().add(välju);
 
         tühjenda.setOnAction(event2 -> {
             pBernValem.clear();
@@ -551,9 +564,9 @@ public class Peaklass extends Application {
         arvuta7.setOnAction(event -> {
 
             try {
-                Text poissoniVastus = new Text(Poisson.arvuta(Double.parseDouble(L.getText())));
+                Text poissoniVastus = new Text(PoissoniJaotus.arvuta(Double.parseDouble(L.getText())));
 
-                StackPane.setAlignment(poissoniVastus, Pos.TOP_RIGHT);
+                StackPane.setAlignment(poissoniVastus, Pos.BOTTOM_CENTER);
                 StackPane.setMargin(poissoniVastus, new Insets(0, 0, 140, 0));
                 poissoniVastus.setId("vastus");
                 juur.getChildren().add(poissoniVastus);

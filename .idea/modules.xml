@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/OOP-ryhmatoo2-vol2.iml" filepath="$PROJECT_DIR$/.idea/modules/OOP-ryhmatoo2-vol2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/OOP-ryhmatoo2-vol2.main.iml" filepath="$PROJECT_DIR$/.idea/modules/OOP-ryhmatoo2-vol2.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/OOP-ryhmatoo2-vol2.test.iml" filepath="$PROJECT_DIR$/.idea/modules/OOP-ryhmatoo2-vol2.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/OOP-ryhmatoo-vol2.iml" filepath="$PROJECT_DIR$/.idea/modules/OOP-ryhmatoo-vol2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/OOP-ryhmatoo-vol2.main.iml" filepath="$PROJECT_DIR$/.idea/modules/OOP-ryhmatoo-vol2.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/OOP-ryhmatoo-vol2.test.iml" filepath="$PROJECT_DIR$/.idea/modules/OOP-ryhmatoo-vol2.test.iml" />
     </modules>
   </component>
 </project>
