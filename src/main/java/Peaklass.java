@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +26,11 @@ import java.util.List;
 public class Peaklass extends Application {
 
     @Override
-    public void start(Stage pealava) {
+    public void start(Stage pealava) throws IOException {
 
         //////////////////////////////////////////////////////////////////////////////////////
+
+        Logifail logifail = new Logifail("logifail.txt");
 
         StackPane juur = new StackPane();
         Scene stseen = new Scene(juur, 1000, 580);
@@ -283,18 +286,6 @@ public class Peaklass extends Application {
         StackPane.setMargin(tühjenda, new Insets(0, 0, 40, 0));
         tühjenda.setId("tühjenda");
 
-        //Nupp programmist väljumiseks
-        Button välju = new Button("Välju");
-        StackPane.setAlignment(välju, Pos.BOTTOM_RIGHT);
-        StackPane.setMargin(välju, new Insets(0, 62, 40, 0));
-        tühjenda.setId("välju");
-
-        välju.setOnAction(event -> {
-            pealava.close();
-        });
-
-        juur.getChildren().add(välju);
-
         tühjenda.setOnAction(event2 -> {
             pBernValem.clear();
             kBernValem.clear();
@@ -330,6 +321,69 @@ public class Peaklass extends Application {
             }
             juur.getChildren().remove(tühjenda);
         });
+
+        //Nupp programmist väljumiseks
+        Button välju = new Button("Välju");
+        StackPane.setAlignment(välju, Pos.BOTTOM_RIGHT);
+        StackPane.setMargin(välju, new Insets(0, 62, 40, 0));
+        tühjenda.setId("välju");
+
+        välju.setOnAction(event -> {
+            pealava.close();
+        });
+
+        juur.getChildren().add(välju);
+
+        //Nupp mälu vaatamiseks
+        Button mälu = new Button("Vaata mälu");
+        StackPane.setAlignment(mälu, Pos.BOTTOM_LEFT);
+        StackPane.setMargin(mälu, new Insets(0, 0, 40, 62));
+        tühjenda.setId("mälu");
+
+        mälu.setOnAction(event2 -> {
+            // luuakse teine lava
+            Stage logi = new Stage();
+            // tekstivälja ja ok-nupu loomine
+            List<Text> logiKirjed = new ArrayList<>();
+            Button okButton2 = new Button("OK");
+
+            try {
+                List<String> kirjed = logifail.loe();
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < kirjed.size(); i++) {
+                    sb.append(kirjed.get(i));
+                    sb.append("\n");
+                    sb.append("\n");
+                }
+                logiKirjed.add(new Text(sb.toString()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            // sündmuse lisamine nupule OK
+            okButton2.setOnAction(new EventHandler<>() {
+                public void handle(ActionEvent event) {
+                    logi.hide();
+                }
+            });
+
+            // teksti ja nupu grupeerimine
+            StackPane pane2 = new StackPane();
+            //pane2.setOrientation(Orientation.VERTICAL);
+            pane2.setAlignment(Pos.CENTER);
+            pane2.getChildren().addAll(logiKirjed);
+            pane2.getChildren().add(okButton2);
+            StackPane.setAlignment(okButton2, Pos.BOTTOM_CENTER);
+            StackPane.setMargin(okButton2, new Insets(0, 0, 25, 0));
+
+            //stseeni loomine
+            Scene stseen3 = new Scene(pane2, 350, 425);
+            logi.setTitle("Logifail");
+            logi.setScene(stseen3);
+            logi.show();
+        });
+
+        juur.getChildren().add(mälu);
 
         //Bernoulli valem
         EventHandler<javafx.scene.input.MouseEvent> bernoulliValHandler1 =
@@ -374,6 +428,7 @@ public class Peaklass extends Application {
                     throw new NumberFormatException();
 
                 Text berniVastus = new Text(BernoulliValem.arvuta(p, n, k));
+                logifail.kirjuta(BernoulliValem.arvuta(p, n, k));
                 StackPane.setAlignment(berniVastus, Pos.BOTTOM_CENTER);
                 StackPane.setMargin(berniVastus, new Insets(0, 0, 140, 0));
                 berniVastus.setId("vastus");
@@ -381,6 +436,8 @@ public class Peaklass extends Application {
                 juur.getChildren().add(tühjenda);
             } catch (NumberFormatException e) {
                 viga.show();
+            } catch (IOException e) {
+                throw new RuntimeException();
             }
 
         });
@@ -420,7 +477,7 @@ public class Peaklass extends Application {
                     throw new NumberFormatException();
 
                 Text bernJVastus = new Text(BernoulliJaotus.arvuta(p));
-
+                logifail.kirjuta(BernoulliJaotus.arvuta(p));
                 StackPane.setAlignment(bernJVastus, Pos.BOTTOM_CENTER);
                 StackPane.setMargin(bernJVastus, new Insets(0, 0, 140, 0));
                 bernJVastus.setId("vastus");
@@ -429,6 +486,9 @@ public class Peaklass extends Application {
             }
             catch (NumberFormatException e) {
                 viga.show();
+            }
+            catch (IOException e) {
+                throw new RuntimeException();
             }
 
         });
@@ -473,7 +533,7 @@ public class Peaklass extends Application {
                     throw new NumberFormatException();
 
                 Text binVastus = new Text(BinoomJaotus.arvuta(p, n));
-
+                logifail.kirjuta(BinoomJaotus.arvuta(p, n));
                 StackPane.setAlignment(binVastus, Pos.BOTTOM_CENTER);
                 StackPane.setMargin(binVastus, new Insets(0, 0, 140, 0));
                 binVastus.setId("vastus");
@@ -483,6 +543,10 @@ public class Peaklass extends Application {
             catch (NumberFormatException e) {
                 viga.show();
             }
+            catch (IOException e) {
+                throw new RuntimeException();
+            }
+
 
         });
 
@@ -522,7 +586,7 @@ public class Peaklass extends Application {
                     throw new NumberFormatException();
 
                 Text geoVastus = new Text(GeomeetrilineJaotus.arvuta(p));
-
+                logifail.kirjuta(GeomeetrilineJaotus.arvuta(p));
                 StackPane.setAlignment(geoVastus, Pos.BOTTOM_CENTER);
                 StackPane.setMargin(geoVastus, new Insets(0, 0, 140, 0));
                 geoVastus.setId("vastus");
@@ -531,6 +595,9 @@ public class Peaklass extends Application {
             }
             catch (NumberFormatException e) {
                 viga.show();
+            }
+            catch (IOException e) {
+                throw new RuntimeException();
             }
 
         });
@@ -564,8 +631,9 @@ public class Peaklass extends Application {
         arvuta7.setOnAction(event -> {
 
             try {
-                Text poissoniVastus = new Text(PoissoniJaotus.arvuta(Double.parseDouble(L.getText())));
-
+                double lambda = Double.parseDouble(L.getText());
+                Text poissoniVastus = new Text(PoissoniJaotus.arvuta(lambda));
+                logifail.kirjuta(PoissoniJaotus.arvuta(lambda));
                 StackPane.setAlignment(poissoniVastus, Pos.BOTTOM_CENTER);
                 StackPane.setMargin(poissoniVastus, new Insets(0, 0, 140, 0));
                 poissoniVastus.setId("vastus");
@@ -574,6 +642,9 @@ public class Peaklass extends Application {
             }
             catch (NumberFormatException e) {
                 viga.show();
+            }
+            catch (IOException e) {
+                throw new RuntimeException();
             }
 
         });
